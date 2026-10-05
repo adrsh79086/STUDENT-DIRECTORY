@@ -4,29 +4,30 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
 
-import express from 'express';
-import { Types } from 'mongoose';
 
 import { TaskService } from './task.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Controller('tasks')
+@UseGuards(JwtAuthGuard)
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   createTask(
     @Body() taskData: CreateTaskDto,
-    @Req() request: express.Request,
+    @Req() request: any,
   ) {
-    const userId = new Types.ObjectId(request['user'].sub);
+    const userId = request.user.sub;
 
     return this.taskService.createTask({
       ...taskData,
@@ -34,35 +35,57 @@ export class TaskController {
     });
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get()
-  getTasks(@Req() request: express.Request) {
-    const userId = request['user'].sub;
-
-    return this.taskService.getUserTasks(userId);
-  }
-
-  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   deleteTask(
-    @Req() request: express.Request,
+    @Req() request: any,
     @Param('id') id: string,
   ) {
-    const userId = request['user'].sub;
+    const userId = request.user.sub;
 
     return this.taskService.deleteTask(id, userId);
   }
 
 
 
- @UseGuards(JwtAuthGuard)
 @Get(':id')
 getTaskById(
   @Param('id') id: string,
-  @Req() request: express.Request,
+  @Req() request: any,
 ) {
-  const userId = request['user'].sub;
+  const userId = request.user.sub;
 
   return this.taskService.getTaskById(id, userId);
+}
+
+@Patch(':id')
+updateTask(
+  @Param('id') id: string,
+  @Body() taskData: UpdateTaskDto,
+  @Req() request: any,
+) {
+  const userId = request.user.sub;
+
+  return this.taskService.updateTask(
+    id,
+    userId,
+    taskData,
+  );
+}
+
+@Get()
+filterTask(
+  @Req() request: any,
+  @Query('status') status?: string,
+  @Query('priority') priority?: string,
+  @Query('search') search?:string,
+) {
+  const userId = request.user.sub;
+
+  return this.taskService.filterTask(
+    userId,
+    status,
+    priority,
+    search,
+  );
 }
 }

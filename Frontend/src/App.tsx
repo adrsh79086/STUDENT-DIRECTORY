@@ -7,6 +7,8 @@ import TaskList from './pages/TaskList';
 import Layout from './components/Layout';
 import AddTask from './components/TaskForm';
 import TaskDetails from './components/TaskDetails';
+import EditTask from './components/EditTask';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -16,39 +18,58 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-
-        <Route
-          path="/dashboard"
-          element={
-            <Layout>
-              <Dashboard />
-            </Layout>
-          }
-        />
-
-        <Route
-          path="/tasks"
-          element={
-            <Layout>
-              <TaskList />
-            </Layout>
-          }
-        />
-        <Route
-  path="/add-task"
+<Route
+  path="/dashboard"
   element={
-    <Layout>
-      <AddTask />
-    </Layout>
+    <ProtectedRoute>
+      <Layout>
+        <Dashboard />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/tasks"
+  element={
+    <ProtectedRoute>
+      <Layout>
+        <TaskList />
+      </Layout>
+    </ProtectedRoute>
   }
 />
 
 <Route
   path="/tasks/:id"
   element={
-    <Layout>
-      <TaskDetails />
-    </Layout>
+    <ProtectedRoute>
+      <Layout>
+        <TaskDetails />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/tasks/:id/edit"
+  element={
+    <ProtectedRoute>
+      <Layout>
+        <EditTask />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/add-task"
+  element={
+    <ProtectedRoute>
+      <Layout>
+        <AddTask />
+      </Layout>
+    </ProtectedRoute>
   }
 />
 
