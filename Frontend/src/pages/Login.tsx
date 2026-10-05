@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -6,6 +7,7 @@ import { login } from '../services/authService';
 
 const Login = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const formik = useFormik({
     initialValues: {
@@ -24,10 +26,10 @@ const Login = () => {
 
     onSubmit: async (values) => {
       try {
+        setError('');
+
         const response = await login(values);
 
-
-        // JWT token save
         localStorage.setItem(
           'access_token',
           response.access_token
@@ -35,12 +37,11 @@ const Login = () => {
 
         alert('Login successful');
 
-      
-         navigate('/dashboard');
-
-      } catch (error) {
-        console.error(error);
-        alert('Invalid email or password');
+        navigate('/dashboard');
+      } catch (error: any) {
+        setError(
+          error.response?.data?.message || 'Login failed'
+        );
       }
     },
   });
@@ -55,6 +56,12 @@ const Login = () => {
           className="auth-form"
           onSubmit={formik.handleSubmit}
         >
+
+          {error && (
+            <span className="error">
+              {error}
+            </span>
+          )}
 
           {/* Email */}
           <div className="form-group">

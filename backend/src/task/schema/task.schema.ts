@@ -1,10 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type TaskDocument = HydratedDocument<Task>;
 
 @Schema({ timestamps: true })
 export class Task {
+
+  @Prop({required:true, unique:true})
+  task_uuid : string;
+  
   @Prop({ required: true })
   title: string;
 
@@ -18,11 +22,9 @@ export class Task {
   priority: string;
 
   @Prop({
-    type: Types.ObjectId,
-    ref: 'User',
-    required: true,
+    required: true
   })
-  userId: Types.ObjectId;
+  userId:string;
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);

@@ -7,4 +7,5 @@ export interface Task {
   userId: string;
   createdAt: string;
   updatedAt: string;
+  task_uuid: string;
 }

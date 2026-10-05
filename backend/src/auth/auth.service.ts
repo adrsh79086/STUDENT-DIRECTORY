@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bycrypt from 'bcrypt';
-
+import { v4 as uuidv4 } from 'uuid';
 import { userService } from 'src/user/user.service';
 import { LoginDto } from './dto/login.Dto';
 import { RegisterDto } from './dto/Signup.Dto';
@@ -20,7 +20,7 @@ export class AuthService {
 
   //register
 
-    async register(registerdto: RegisterDto) {
+  async register(registerdto: RegisterDto) {
   try {
     const existingUser = await this.userService.findbyEmail(
       registerdto.email,
@@ -36,9 +36,10 @@ export class AuthService {
     );
 
     const user = await this.userService.create({
+      uuid: uuidv4(),
       name: registerdto.name,
       email: registerdto.email,
-      password: hashpass, // ✅ hashed password
+      password: hashpass,
     });
 
     return {
@@ -58,8 +59,10 @@ export class AuthService {
     );
   }
 }
+
+
 //login
-     async login(logindto: LoginDto) {
+  async login(logindto: LoginDto) {
   try {
     const user = await this.userService.findbyEmail(
       logindto.email,
@@ -81,9 +84,15 @@ export class AuthService {
         'invalid credentials',
       );
     }
+
+    //jwt generate
+
     const payload = {
-      sub: user._id.toString(),
+
+      sub: user.uuid,
       email: user.email,
+      name: user.name,
+
     };
     const accessToken = await this.jwtService.signAsync(payload);
     return {
@@ -104,8 +113,6 @@ export class AuthService {
   }
 }
 
-
-
-
-
 }
+
+

@@ -9,7 +9,7 @@ body {
   background-color: #f4f6f8;
 }
 
-/* Common Auth Container */
+/* ================= AUTH ================= */
 
 .auth-container {
   min-height: 100vh;
@@ -17,8 +17,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
-/* Common Auth Box */
 
 .auth-box {
   width: 400px;
@@ -28,15 +26,11 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Heading */
-
 .auth-box h2 {
   text-align: center;
   margin-bottom: 30px;
   color: #222;
 }
-
-/* Form */
 
 .auth-form {
   display: flex;
@@ -44,14 +38,10 @@ body {
   gap: 18px;
 }
 
-/* Input Group */
-
 .form-group {
   display: flex;
   flex-direction: column;
 }
-
-/* Label */
 
 .form-group label {
   margin-bottom: 8px;
@@ -59,8 +49,6 @@ body {
   font-weight: 600;
   color: #333;
 }
-
-/* Input */
 
 .form-group input {
   width: 100%;
@@ -79,28 +67,23 @@ body {
   color: #999;
 }
 
-/* Button */
-
 .auth-button {
   width: 100%;
   padding: 12px;
   margin-top: 5px;
-
   border: none;
   border-radius: 6px;
-
   background-color: #2563eb;
   color: white;
-
   font-size: 15px;
   font-weight: 600;
-
   cursor: pointer;
 }
 
 .auth-button:hover {
   background-color: #1d4ed8;
 }
+
 .auth-switch {
   margin-top: 20px;
   text-align: center;
@@ -120,17 +103,39 @@ body {
 .link-button:hover {
   text-decoration: underline;
 }
+
 .error {
   margin-top: 5px;
   color: #dc2626;
   font-size: 13px;
 }
 
+/* ================= NAVBAR ================= */
+
 .navbar {
-  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;;
   background: #222;
   color: white;
+  position: relative;
 }
+
+.navbar-right{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.navbar button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ================= SIDEBAR ================= */
 
 .sidebar {
   width: 180px;
@@ -146,10 +151,14 @@ body {
   text-decoration: none;
 }
 
+/* ================= MAIN CONTENT ================= */
+
 .main-content {
   margin-left: 220px;
   padding: 20px;
 }
+
+/* ================= DASHBOARD ================= */
 
 .stats {
   display: flex;
@@ -159,32 +168,12 @@ body {
 .stat-card {
   padding: 20px;
   border: 1px solid #ddd;
-}
-.task-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
   background: white;
+  border-radius: 6px;
 }
 
-.task-table th,
-.task-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
+/* ================= TASK HEADER ================= */
 
-.task-table th {
-  background: #f5f5f5;
-}
-
-.task-table tr:hover {
-  background: #fafafa;
-}
-
-.task-table td:last-child {
-  text-transform: capitalize;
-}
 .task-header {
   display: flex;
   justify-content: space-between;
@@ -198,6 +187,70 @@ body {
   cursor: pointer;
   border-radius: 5px;
 }
+
+/* ================= FILTERS ================= */
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.filters input,
+.filters select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.filters input {
+  width: 200px;
+}
+
+.filters button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ================= TASK DATAGRID ================= */
+
+.task-table {
+  height: 500px;
+  width: 100%;
+}
+
+.task-table button {
+  margin-right: 5px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.task-table button:hover {
+  opacity: 0.8;
+}
+
+.view-btn {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.edit-btn {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.delete-btn {
+  background: #f8d7da;
+  color: #dc3545;
+}
+
+/* ================= TASK FORM ================= */
 
 .task-form-page {
   max-width: 500px;
@@ -226,22 +279,8 @@ body {
   padding: 10px;
   cursor: pointer;
 }
-.task-table td:last-child {
-  display: flex;
-  gap: 8px;
-}
 
-.task-table td:last-child button {
-  padding: 6px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-.task-table td:last-child button:hover {
-  opacity: 0.8;
-}
+/* ================= TASK DETAILS ================= */
 
 .detail {
   max-width: 600px;
